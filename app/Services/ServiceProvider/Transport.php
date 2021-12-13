@@ -28,6 +28,13 @@ abstract class Transport
     protected $package;
 
     /**
+     * 预报信息类
+     *
+     * @var Forecast
+     */
+    protected $forecast;
+
+    /**
      * 启动注册完成后的启动函数
      *
      * @return void
@@ -45,11 +52,33 @@ abstract class Transport
      */
     public abstract function register();
 
+    /**
+     * 获取包裹的属性
+     *
+     * @return Package
+     * @auther houxin 2021/12/13 22:43
+     */
     public function getPackageInstance()
     {
         if (!$this->package) {
             $this->package = new $this->packageClass();
+            $this->package->init();
         }
         return $this->package;
+    }
+
+    /**
+     * 获取预报的数据
+     *
+     * @return Forecast|mixed
+     * @auther houxin 2021/12/13 22:46
+     */
+    public function getForecastInstance()
+    {
+        if (!$this->forecast) {
+            $this->forecast = new $this->forecastClass();
+            $this->forecast->init();
+        }
+        return $this->forecast;
     }
 }
