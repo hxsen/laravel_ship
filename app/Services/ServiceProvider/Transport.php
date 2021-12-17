@@ -2,25 +2,12 @@
 
 namespace App\Services\ServiceProvider;
 
+use App\Exceptions\ServiceProvider\ClassNotInstantiatedException;
 use App\Services\ServiceProvider\Traits\PackageTrait;
 
 abstract class Transport
 {
     use PackageTrait;
-
-    /**
-     * 包裹数据类
-     *
-     * @var string
-     */
-    protected $packageClass;
-
-    /**
-     * 预报数据类
-     *
-     * @var string
-     */
-    protected $forecastClass;
 
     /**
      * @var Package 获取包裹数据
@@ -33,6 +20,11 @@ abstract class Transport
      * @var Forecast
      */
     protected $forecast;
+
+    /**
+     * @var array[] 包裹商品信息
+     */
+    protected $packageGoods;
 
     /**
      * 启动注册完成后的启动函数
@@ -60,11 +52,7 @@ abstract class Transport
      */
     public function getPackageInstance()
     {
-        if (!$this->package) {
-            $this->package = new $this->packageClass();
-            $this->package->init();
-        }
-        return $this->package;
+        return $this->getPropertyInstance($this->package);
     }
 
     /**
@@ -75,10 +63,30 @@ abstract class Transport
      */
     public function getForecastInstance()
     {
-        if (!$this->forecast) {
-            $this->forecast = new $this->forecastClass();
-            $this->forecast->init();
+        return $this->getPropertyInstance($this->forecast);
+    }
+
+
+    /**
+     * 设置子类的属性示例
+     *
+     * @param Object $instance
+     * @return mixed
+     * @throws ClassNotInstantiatedException
+     * @author houxin 2021/12/17 10:55
+     */
+    protected function getPropertyInstance($instance)
+    {
+        // 如果该类的属性不存在，则报错提示
+        if (!$instance) {
+            throw new ClassNotInstantiatedException(get_class($instance) . '：未实例化');
         }
-        return $this->forecast;
+        // 如果类的属性未加载，则调用该属性加载
+        if ($instance->loadStatus) {
+            $instance->init();
+            $instance->loadStatus = true;
+        }
+
+        return $instance;
     }
 }
