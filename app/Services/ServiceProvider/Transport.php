@@ -27,6 +27,30 @@ abstract class Transport
     protected $packageGoods;
 
     /**
+     * @param Package $package
+     */
+    protected function setPackage(Package $package): void
+    {
+        $this->package = $package;
+    }
+
+    /**
+     * @param Forecast $forecast
+     */
+    protected function setForecast(Forecast $forecast): void
+    {
+        $this->forecast = $forecast;
+    }
+
+    /**
+     * @param array[] $packageGoods
+     */
+    protected function setPackageGoods(array $packageGoods): void
+    {
+        $this->packageGoods = $packageGoods;
+    }
+
+    /**
      * 启动注册完成后的启动函数
      *
      * @return void
