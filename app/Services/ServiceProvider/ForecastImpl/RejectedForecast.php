@@ -2,9 +2,7 @@
 
 namespace App\Services\ServiceProvider\ForecastImpl;
 
-use App\Services\ServiceProvider\Forecast;
-
-class RejectedForecast implements Forecast
+class RejectedForecast extends BaseForecast
 {
 
 }

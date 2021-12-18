@@ -2,15 +2,8 @@
 
 namespace App\Services\ServiceProvider\PackageImpl;
 
-use App\Services\ServiceProvider\Package;
-
-class RejectedPackage implements Package
+class RejectedPackage extends BasePackage
 {
-    public function init()
-    {
-        // TODO: Implement init() method.
-    }
-
     /**
      * @inheritDoc
      */

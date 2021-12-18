@@ -22,32 +22,49 @@ abstract class Transport
     protected $forecast;
 
     /**
-     * @var array[] 包裹商品信息
+     * 包裹商品列表
+     *
+     * @var PackageGoods[] 包裹商品信息
      */
-    protected $packageGoods;
+    protected $packageGoodsList;
 
     /**
+     * 设置package类实例
+     *
      * @param Package $package
+     * @return $this
+     * @auther houxin 2021/12/18 15:37
      */
-    protected function setPackage(Package $package): void
+    protected function setPackage(Package $package): self
     {
         $this->package = $package;
+        return $this;
     }
 
     /**
+     * 设置预报类
+     *
      * @param Forecast $forecast
+     * @return $this
+     * @auther houxin 2021/12/18 15:37
      */
-    protected function setForecast(Forecast $forecast): void
+    protected function setForecast(Forecast $forecast): self
     {
         $this->forecast = $forecast;
+        return $this;
     }
 
     /**
-     * @param array[] $packageGoods
+     * 设置包裹商品实例
+     *
+     * @param array $packageGoods
+     * @return $this
+     * @auther houxin 2021/12/18 15:38
      */
-    protected function setPackageGoods(array $packageGoods): void
+    protected function setPackageGoodsList(array $packageGoodsList): self
     {
-        $this->packageGoods = $packageGoods;
+        $this->packageGoodsList = $packageGoodsList;
+        return $this;
     }
 
     /**
@@ -112,5 +129,29 @@ abstract class Transport
         }
 
         return $instance;
+    }
+
+    /**
+     * 获取当前类的所有商品
+     *
+     * @return array
+     * @auther houxin 2021/12/18 16:11
+     */
+    public function toArray()
+    {
+        // 包裹商品数据处理
+        $packageGoodsArray = [];
+        foreach ($this->packageGoodsList as $packageGoods) {
+            $packageGoodsArray[] = $packageGoods->toArray();
+        }
+
+        // 加载所有的数据
+        $list = [
+            'package' => $this->getPackageInstance()->toArray(),
+            'forecast' => $this->getPackageInstance()->toArray(),
+            'packageGoods' => $packageGoodsArray,
+        ];
+
+        return $list;
     }
 }
