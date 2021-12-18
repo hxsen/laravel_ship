@@ -2,18 +2,19 @@
 
 namespace App\Services\ServiceProvider;
 
+use App\Services\ServiceProvider\Builders\PackageBuilder;
+
 /**
  * 定义一些包裹的通用属性
  */
 interface Package
 {
     /**
-     * 初始化 然后加载数据
+     * 通过数据模型实例化数据
      *
-     * @return mixed
-     * @auther houxin 2021/12/13 22:40
+     * @param PackageBuilder $packageDTO
      */
-    public function init();
+    public function __construct(PackageBuilder $packageDTO);
 
     /**
      * 获取包裹号

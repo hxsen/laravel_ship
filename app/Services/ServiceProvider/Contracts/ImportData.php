@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ServiceProvider\Interfaces;
+namespace App\Services\ServiceProvider\Contracts;
 
 interface ImportData
 {

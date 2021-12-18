@@ -2,8 +2,9 @@
 
 namespace App\Services\ServiceProvider\PackageImpl;
 
-use App\Services\ServiceProvider\Interfaces\ExportData;
-use App\Services\ServiceProvider\Interfaces\ImportData;
+use App\Services\ServiceProvider\Contracts\ExportData;
+use App\Services\ServiceProvider\Contracts\ImportData;
+use App\Services\ServiceProvider\Builders\PackageBuilder;
 use App\Services\ServiceProvider\Package;
 
 abstract class BasePackage implements Package, ImportData, ExportData
@@ -18,6 +19,11 @@ abstract class BasePackage implements Package, ImportData, ExportData
      */
     protected $packageNo;
 
+    public function __construct(PackageBuilder $builder)
+    {
+        $this->packageNo = $builder->getPackageNo();
+    }
+
     public function init(): void
     {
         // 该步骤需要查询所有有需要的数据
@@ -25,7 +31,9 @@ abstract class BasePackage implements Package, ImportData, ExportData
 
     public function toArray(): array
     {
-        // 读取所有get前缀的值，并转成数据并返回
+        return [
+            'package_no' => $this->getPackageNo(),
+        ];
     }
 
     public function getPackageMkcUsdPrice(): float

@@ -4,6 +4,13 @@ namespace App\Services\ServiceProvider\PackageImpl;
 
 class RejectedPackage extends BasePackage
 {
+    public function toArray(): array
+    {
+        $properties = parent::toArray();
+
+        return $properties;
+    }
+
     /**
      * @inheritDoc
      */

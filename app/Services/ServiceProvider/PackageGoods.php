@@ -2,8 +2,17 @@
 
 namespace App\Services\ServiceProvider;
 
+use App\Services\ServiceProvider\Builders\PackageGoodsBuilder;
+
 interface PackageGoods
 {
+    /**
+     * 加载数据对象
+     *
+     * @param PackageGoodsBuilder $packageGoodsDTO
+     */
+    public function __construct(PackageGoodsBuilder $packageGoodsDTO);
+
     /**
      * 获取商品名称
      *
