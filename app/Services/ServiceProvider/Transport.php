@@ -3,30 +3,31 @@
 namespace App\Services\ServiceProvider;
 
 use App\Exceptions\ServiceProvider\ClassNotInstantiatedException;
+use App\Services\ServiceProvider\Traits\DeclaredValue;
 use App\Services\ServiceProvider\Traits\PackageTrait;
 
 abstract class Transport
 {
-    use PackageTrait;
+    use PackageTrait, DeclaredValue;
 
     /**
      * @var Package 获取包裹数据
      */
-    protected $package;
+    private $package;
 
     /**
      * 预报信息类
      *
      * @var Forecast
      */
-    protected $forecast;
+    private $forecast;
 
     /**
      * 包裹商品列表
      *
      * @var PackageGoods[] 包裹商品信息
      */
-    protected $packageGoodsList;
+    private $packageGoodsList;
 
     /**
      * 设置package类实例
@@ -91,7 +92,7 @@ abstract class Transport
      * @return Package
      * @auther houxin 2021/12/13 22:43
      */
-    public function getPackageInstance()
+    public function getPackageInstance(): Package
     {
         return $this->getPropertyInstance($this->package);
     }
@@ -102,14 +103,25 @@ abstract class Transport
      * @return Forecast|mixed
      * @auther houxin 2021/12/13 22:46
      */
-    public function getForecastInstance()
+    public function getForecastInstance(): Forecast
     {
         return $this->getPropertyInstance($this->forecast);
     }
 
+    /**
+     * 获取预报的数据
+     *
+     * @return PackageGoods[]
+     * @auther houxin 2021/12/18 17:48
+     */
+    public function getPackageGoodsList()
+    {
+        return $this->getPropertyListInstance($this->packageGoodsList);
+    }
+
 
     /**
-     * 设置子类的属性示例
+     * 设置子类的属性实例
      *
      * @param Object $instance
      * @return mixed
@@ -129,6 +141,24 @@ abstract class Transport
         }
 
         return $instance;
+    }
+
+    /**
+     * 设置子类的属性集合实例
+     *
+     * @param array $instanceList
+     * @return array
+     * @throws ClassNotInstantiatedException
+     * @auther houxin 2021/12/18 17:54
+     */
+    protected function getPropertyListInstance(array $instanceList)
+    {
+        // 循环处理内部的单个类
+        return tap($instanceList, function () use($instanceList) {
+            foreach ($instanceList as $instance) {
+                $this->getPropertyInstance($instance);
+            }
+        });
     }
 
     /**

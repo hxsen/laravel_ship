@@ -22,4 +22,9 @@ abstract class BaseForecast implements Forecast, ImportData, ExportData
     {
         // TODO: Implement init() method.
     }
+
+    public function getRuleId(): int
+    {
+        return 9;
+    }
 }

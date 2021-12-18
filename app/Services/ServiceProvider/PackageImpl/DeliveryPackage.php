@@ -2,10 +2,6 @@
 
 namespace App\Services\ServiceProvider\PackageImpl;
 
-use App\Services\ServiceProvider\Interfaces\ExportData;
-use App\Services\ServiceProvider\Interfaces\ImportData;
-use App\Services\ServiceProvider\Package;
-
 class DeliveryPackage extends BasePackage
 {
     /**
@@ -14,6 +10,8 @@ class DeliveryPackage extends BasePackage
     public function getPackageNo()
     {
         // TODO: Implement getPackageNo() method.
+
+        return $this->packageNo;
     }
 
     /**
