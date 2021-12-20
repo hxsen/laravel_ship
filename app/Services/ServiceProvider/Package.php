@@ -12,9 +12,9 @@ interface Package
     /**
      * 通过数据模型实例化数据
      *
-     * @param PackageBuilder $packageDTO
+     * @param PackageBuilder $builder
      */
-    public function __construct(PackageBuilder $packageDTO);
+    public function __construct(PackageBuilder $builder);
 
     /**
      * 获取包裹号

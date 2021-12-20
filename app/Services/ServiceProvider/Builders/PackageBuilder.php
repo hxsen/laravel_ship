@@ -36,6 +36,10 @@ class PackageBuilder
      */
     public function build($className)
     {
+        // 这块设计的目的有以下两点
+        // 1、在实例化package类之前，对数据进行默认值处理
+        // 2、可以对数据进行校验，有些数据可能依赖其他的数据而存在
+
         return new $className($this);
     }
 }
