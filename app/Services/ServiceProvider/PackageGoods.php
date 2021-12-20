@@ -9,9 +9,9 @@ interface PackageGoods
     /**
      * 加载数据对象
      *
-     * @param PackageGoodsBuilder $packageGoodsDTO
+     * @param PackageGoodsBuilder $builder
      */
-    public function __construct(PackageGoodsBuilder $packageGoodsDTO);
+    public function __construct(PackageGoodsBuilder $builder);
 
     /**
      * 获取商品名称

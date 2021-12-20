@@ -9,9 +9,9 @@ interface Forecast
     /**
      * 实例化预报类的数据
      *
-     * @param ForecastBuilder $forecastDTO
+     * @param ForecastBuilder $builder
      */
-    public function __construct(ForecastBuilder $forecastDTO);
+    public function __construct(ForecastBuilder $builder);
 
     /**
      * 获取规则ID
