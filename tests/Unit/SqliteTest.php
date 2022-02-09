@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class SqliteTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     /**
      * A basic unit test example.
@@ -22,7 +22,6 @@ class SqliteTest extends TestCase
         $this->seed(UsersTableSeeder::class);
 
         $list = User::all();
-        dd($list);
 
         $this->assertTrue(true);
     }
